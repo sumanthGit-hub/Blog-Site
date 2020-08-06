@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<title>Employee Register</title>
+  <h3>Employee Register</h3>
+
+<form method="post" autocomplete="off">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-success">Submit</button>
+
+</form>
+{% endblock %}

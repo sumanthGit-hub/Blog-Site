@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% block content_header %}
+<title>Books Page</title>
+
+  <h2>Details</h2>
+  <button type="Goto" class="btn btn-brand"><a href="{% url 'Students:upload_student' %}">Upload Details</a></button>
+{% endblock %}
+  <table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Name</th>
+        <th>Download</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+        <tr>
+          <td>
+            {% if student.cover %}
+              <img src="{{student.cover.url}}" alt="{{student.title}}">
+            {% else %}
+              <span class="text-muted">No cover</span>
+            {% endif %}
+          </td>
+          <th>{{student.title}}</th>
+          <th>{{student.auth}}</th>
+          <th><a href="{{student.file.url}}" class="btn btn-primary btn-sm" target="_blank">Download</a></th>
+          <td>
+            <form method="post" action="{% url 'Students:delete_student' student.pk %}" >
+              {% csrf_token %}
+              <button type="Submit"  class="btn btn-danger btm-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
